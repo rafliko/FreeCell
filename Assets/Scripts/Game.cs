@@ -2,24 +2,35 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
-    public static GameObject selectedCard = null;
-    public static int fcCount = 12;
+    public static GameObject selectedCard;
+    public static int fcCount;
 
     public GameObject cardObj;
+    public Button btReset;
 
     // Start is called before the first frame update
     void Start()
     {
+        selectedCard = null;
+        fcCount = 12;
+        btReset.onClick.AddListener(Reload);
         Deal();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(fcCount);
+        
+    }
+    
+    void Reload()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     void Deal()
@@ -65,7 +76,7 @@ public class Game : MonoBehaviour
             if (Array.IndexOf(tab1, tmp) == -1)
             {
                 tab1[i] = tmp;
-                Debug.Log("Anglo/" + tab1[i] + ".png");
+                //Debug.Log("Anglo/" + tab1[i] + ".png");
                 var c = Instantiate(cardObj, new Vector3((i%8)*1.5f-5.25f, -(i / 8)*0.5f+3.75f, -(i / 8)-1), Quaternion.identity);
                 tab2[i] = c;
                 if(i>7)
