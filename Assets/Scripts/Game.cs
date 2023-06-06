@@ -6,6 +6,7 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
     public static GameObject selectedCard = null;
+    public static int fcCount = 12;
 
     public GameObject cardObj;
 
@@ -18,7 +19,7 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //Debug.Log(fcCount);
     }
 
     void Deal()
@@ -82,5 +83,40 @@ public class Game : MonoBehaviour
             }
             else i--;
         }
+    }
+
+    public static int countChildrenRecursive(Transform t)
+    {
+        if(t.childCount == 0) return 0;
+        else return countChildrenRecursive(t.GetChild(0).transform) + 1;
+    }
+
+    public static bool checkChildrenRecursive(Transform t)
+    {
+        int v = t.GetComponent<Card>().value;
+        int s = t.GetComponent<Card>().suit;
+        if (t.childCount == 0)
+        {
+            return true;
+        }
+        else
+        {
+            int cv = t.GetChild(0).GetComponent<Card>().value;
+            int cs = t.GetChild(0).GetComponent<Card>().suit;
+            if (cv == v - 1 && cs % 2 != s % 2)
+            {
+                return checkChildrenRecursive(t.GetChild(0).transform);
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
+    public static void colorChildrenRecursive(Transform t, Color c)
+    {
+        t.GetComponent<SpriteRenderer>().color = c;
+        if (t.childCount > 0) colorChildrenRecursive(t.GetChild(0).transform, c);
     }
 }

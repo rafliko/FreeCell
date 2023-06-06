@@ -24,17 +24,20 @@ public class Card : MonoBehaviour
         {
             //Select card
 
-            GetComponent<SpriteRenderer>().color = Color.yellow;
-            Game.selectedCard = gameObject;
+            if(Game.checkChildrenRecursive(transform) && Game.countChildrenRecursive(transform) <= Game.fcCount+1)
+            {
+                Game.colorChildrenRecursive(transform, Color.yellow);
+                Game.selectedCard = gameObject;
+            }
         }
         else
         {
             //Move selected card under this card
-            var scRenderer = Game.selectedCard.GetComponent<SpriteRenderer>();
             var scScript = Game.selectedCard.GetComponent<Card>();
 
-            scRenderer.color = Color.white;
-            if(tag == "tableau" && transform.childCount == 0 && transform.position.x != Game.selectedCard.transform.position.x)
+            Game.colorChildrenRecursive(Game.selectedCard.transform, Color.white);
+            if (tag == "tableau" && transform.childCount == 0 && transform.position.x != Game.selectedCard.transform.position.x &&
+               scScript.value == value - 1 && scScript.suit % 2 != suit % 2)
             {
                 Game.selectedCard.tag = tag;
                 Game.selectedCard.transform.parent = transform;
@@ -46,6 +49,7 @@ public class Card : MonoBehaviour
                 Game.selectedCard.transform.parent = transform;
                 Game.selectedCard.transform.position = gameObject.transform.position + Vector3.back;
             }
+            //Debug.Log("Child check: "+Game.checkChildrenRecursive(Game.selectedCard.transform));
             Game.selectedCard = null;
         }
     }
