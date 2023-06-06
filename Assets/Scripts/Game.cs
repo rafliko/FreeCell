@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
-    public static GameObject selection = null;
+    public static GameObject selectedCard = null;
 
     public GameObject cardObj;
 
@@ -40,10 +40,10 @@ public class Game : MonoBehaviour
                     tmp = "diamond_";
                     break;
                 case 3:
-                    tmp = "heart_";
+                    tmp = "spade_";
                     break;
                 case 4:
-                    tmp = "spade_";
+                    tmp = "heart_";
                     break;
             }
             switch (x)
@@ -77,6 +77,8 @@ public class Game : MonoBehaviour
                 }
                 Sprite sp = Resources.Load<Sprite>("Anglo/" + tab1[i]);
                 c.GetComponent<SpriteRenderer>().sprite = sp;
+                c.GetComponent<Card>().value = x;
+                c.GetComponent<Card>().suit = y;
             }
             else i--;
         }

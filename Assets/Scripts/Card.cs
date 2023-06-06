@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Card : MonoBehaviour
 {
+    public int value, suit;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,20 +20,33 @@ public class Card : MonoBehaviour
 
     void OnMouseDown()
     {
-        if(Game.selection==null)
+        if(Game.selectedCard==null)
         {
+            //Select card
+
             GetComponent<SpriteRenderer>().color = Color.yellow;
-            Game.selection = gameObject;
+            Game.selectedCard = gameObject;
         }
         else
         {
-            Game.selection.GetComponent<SpriteRenderer>().color = Color.white;
-            if(transform.childCount == 0 && Game.selection != gameObject)
+            //Move selected card under this card
+            var scRenderer = Game.selectedCard.GetComponent<SpriteRenderer>();
+            var scScript = Game.selectedCard.GetComponent<Card>();
+
+            scRenderer.color = Color.white;
+            if(tag == "tableau" && transform.childCount == 0 && transform.position.x != Game.selectedCard.transform.position.x)
             {
-                Game.selection.transform.parent = transform;
-                Game.selection.transform.position = gameObject.transform.position + Vector3.down * 0.5f + Vector3.back;
+                Game.selectedCard.tag = tag;
+                Game.selectedCard.transform.parent = transform;
+                Game.selectedCard.transform.position = gameObject.transform.position + Vector3.down * 0.5f + Vector3.back;
             }
-            Game.selection = null;
+            else if(tag == "goal" && scScript.value == value + 1 && scScript.suit == suit)
+            {
+                Game.selectedCard.tag = tag;
+                Game.selectedCard.transform.parent = transform;
+                Game.selectedCard.transform.position = gameObject.transform.position + Vector3.back;
+            }
+            Game.selectedCard = null;
         }
     }
 }
