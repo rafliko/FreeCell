@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,8 +24,9 @@ public class Card : MonoBehaviour
         if(Game.selectedCard==null)
         {
             //Select card
+            int max = (int)Math.Pow(2, Game.m) * (Game.n + 1);
 
-            if(Game.checkChildrenRecursive(transform) && Game.countChildrenRecursive(transform) <= Game.fcCount)
+            if(Game.checkChildrenRecursive(transform) && Game.countChildrenRecursive(transform)+1 <= max)
             {
                 //Debug.Log(Game.fcCount + ":" + Game.countChildrenRecursive(transform));
                 Game.colorChildrenRecursive(transform, Color.yellow);

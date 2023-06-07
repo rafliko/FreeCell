@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class Game : MonoBehaviour
 {
     public static GameObject selectedCard;
-    public static int fcCount;
+    public static int n, m;
 
     public GameObject cardObj;
     public Button btReset;
@@ -17,7 +17,8 @@ public class Game : MonoBehaviour
     void Start()
     {
         selectedCard = null;
-        fcCount = 4;
+        n = 4;
+        m = 0;
         btReset.onClick.AddListener(Reload);
         Deal();
     }
@@ -25,7 +26,7 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(fcCount);
+        Debug.Log("N:"+n+" M:"+m);
     }
     
     void Reload()

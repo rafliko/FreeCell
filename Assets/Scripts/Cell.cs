@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,13 +19,15 @@ public class Cell : MonoBehaviour
     {
         if(prevChildCount!=transform.childCount && tag!="goal")
         {
-            if(transform.childCount==0)
+            if(tag=="freecell")
             {
-                Game.fcCount++;
+                if (transform.childCount == 0) Game.n++;
+                else if (transform.childCount == 1) Game.n--;
             }
-            else if(transform.childCount==1)
+            else if(tag=="tableau")
             {
-                Game.fcCount--;
+                if (transform.childCount == 0) Game.m++;
+                else if (transform.childCount == 1) Game.m--;
             }
             prevChildCount = transform.childCount;
         }
@@ -35,11 +38,12 @@ public class Cell : MonoBehaviour
         if (Game.selectedCard != null)
         {
             //Move selected card to this cell
+            int max = (int)Math.Pow(2, Game.m) * (Game.n + 1);
 
             Game.colorChildrenRecursive(Game.selectedCard.transform, Color.white);
             if ( (tag == "freecell" && Game.selectedCard.transform.childCount == 0) ||
                 (tag == "goal" && Game.selectedCard.transform.childCount == 0 && Game.selectedCard.GetComponent<Card>().value == 1) ||
-                (tag == "tableau") && Game.countChildrenRecursive(Game.selectedCard.transform) <= Game.fcCount - 1)
+                (tag == "tableau") && Game.countChildrenRecursive(Game.selectedCard.transform)+1 <= max/2)
             {
                 Game.selectedCard.tag = tag;
                 Game.selectedCard.transform.parent = transform;
