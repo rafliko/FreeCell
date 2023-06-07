@@ -39,7 +39,7 @@ public class Cell : MonoBehaviour
             Game.colorChildrenRecursive(Game.selectedCard.transform, Color.white);
             if ( (tag == "freecell" && Game.selectedCard.transform.childCount == 0) ||
                 (tag == "goal" && Game.selectedCard.transform.childCount == 0 && Game.selectedCard.GetComponent<Card>().value == 1) ||
-                (tag == "tableau"))
+                (tag == "tableau") && Game.countChildrenRecursive(Game.selectedCard.transform) <= Game.fcCount - 1)
             {
                 Game.selectedCard.tag = tag;
                 Game.selectedCard.transform.parent = transform;
