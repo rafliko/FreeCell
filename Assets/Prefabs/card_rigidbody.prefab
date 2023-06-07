@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3281351491679423517}
   - component: {fileID: 3281351491679423516}
-  - component: {fileID: 744740600619470047}
   - component: {fileID: -5193662516499158129}
+  - component: {fileID: 6076172518108040435}
   m_Layer: 0
-  m_Name: card
+  m_Name: card_rigidbody
   m_TagString: tableau
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,20 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &744740600619470047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3281351491679423515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e0c9372f43c9804ca0c9b487133e891, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  value: 0
-  suit: 0
 --- !u!61 &-5193662516499158129
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -110,7 +96,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -126,3 +112,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.3466667, y: 2.1}
   m_EdgeRadius: 0
+--- !u!50 &6076172518108040435
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3281351491679423515}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 6200000, guid: bcfec47ac8304b54483f0fff57cc9e28, type: 2}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

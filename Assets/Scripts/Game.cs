@@ -4,14 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class Game : MonoBehaviour
 {
     public static GameObject selectedCard;
-    public static int n, m;
+    public static int n, m, goals;
+    public static bool finish;
 
     public GameObject cardObj;
+    public GameObject cardRigidbodyObj;
     public Button btReset;
+    public Button btRules;
+    public Button btAuto;
+    public Text txtWin;
 
     // Start is called before the first frame update
     void Start()
@@ -19,19 +25,63 @@ public class Game : MonoBehaviour
         selectedCard = null;
         n = 4;
         m = 0;
+        finish = false;
         btReset.onClick.AddListener(Reload);
+        btRules.onClick.AddListener(Rules);
+        btAuto.onClick.AddListener(Finish);
         Deal();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("N:"+n+" M:"+m);
+        Debug.Log(goals);
+
+        if (goals == 4 && !finish)
+        {
+            Finish();
+        }
+
+        if(m >= 4 && !finish) 
+        {
+            btAuto.GetComponent<Button>().interactable = true;
+        }
     }
     
     void Reload()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    void Rules()
+    {
+        Application.OpenURL("https://en.wikipedia.org/wiki/FreeCell");
+    }
+
+    void Finish()
+    {
+        Sprite sp;
+
+        txtWin.enabled = true;
+        btAuto.GetComponent<Button>().interactable = false;
+        for (int i=0; i<8; i++)
+        {
+            var t = GameObject.Find("t" + Convert.ToString(i + 1));
+            var fc = GameObject.Find("fc" + Convert.ToString(i + 1));
+            var g = GameObject.Find("g" + Convert.ToString(i + 1));
+            if (t.transform.childCount > 0) Destroy(t.transform.GetChild(0).gameObject);
+            if (fc!=null && fc.transform.childCount > 0) Destroy(fc.transform.GetChild(0).gameObject);
+            if (g != null && g.transform.childCount > 0) Destroy(g.transform.GetChild(0).gameObject);
+        }
+        for(int i=0; i<20; i++)
+        {
+            var c = Instantiate(cardRigidbodyObj, new Vector3(0f, 4f, -i-1), Quaternion.identity);
+            if(i%2==0) sp = Resources.Load<Sprite>("Anglo/spade_king");
+            else sp = Resources.Load<Sprite>("Anglo/heart_king");
+            c.GetComponent<SpriteRenderer>().sprite = sp;
+        }
+
+        finish = true;
     }
 
     void Deal()

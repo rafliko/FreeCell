@@ -42,12 +42,14 @@ public class Card : MonoBehaviour
             if (tag == "tableau" && transform.childCount == 0 && transform.position.x != Game.selectedCard.transform.position.x &&
                scScript.value == value - 1 && scScript.suit % 2 != suit % 2)
             {
+                if (scScript.value == 13 && Game.selectedCard.tag == "goal") Game.goals--;
                 Game.selectedCard.tag = tag;
                 Game.selectedCard.transform.parent = transform;
                 Game.selectedCard.transform.position = gameObject.transform.position + Vector3.down * 0.5f + Vector3.back;
             }
             else if(tag == "goal" && scScript.value == value + 1 && scScript.suit == suit)
             {
+                if (scScript.value == 13 && Game.selectedCard.tag != "goal") Game.goals++;
                 Game.selectedCard.tag = tag;
                 Game.selectedCard.transform.parent = transform;
                 Game.selectedCard.transform.position = gameObject.transform.position + Vector3.back;
