@@ -9,7 +9,8 @@ public class Cell : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        prevChildCount = transform.childCount;
+        if(tag=="freecell") prevChildCount = 0;
+        else if(tag=="tableau") prevChildCount = 1;
     }
 
     // Update is called once per frame

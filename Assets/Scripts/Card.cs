@@ -24,8 +24,9 @@ public class Card : MonoBehaviour
         {
             //Select card
 
-            if(Game.checkChildrenRecursive(transform) && Game.countChildrenRecursive(transform) <= Game.fcCount+1)
+            if(Game.checkChildrenRecursive(transform) && Game.countChildrenRecursive(transform) <= Game.fcCount)
             {
+                //Debug.Log(Game.fcCount + ":" + Game.countChildrenRecursive(transform));
                 Game.colorChildrenRecursive(transform, Color.yellow);
                 Game.selectedCard = gameObject;
             }

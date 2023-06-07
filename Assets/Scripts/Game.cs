@@ -17,7 +17,7 @@ public class Game : MonoBehaviour
     void Start()
     {
         selectedCard = null;
-        fcCount = 12;
+        fcCount = 4;
         btReset.onClick.AddListener(Reload);
         Deal();
     }
@@ -25,7 +25,7 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //Debug.Log(fcCount);
     }
     
     void Reload()
