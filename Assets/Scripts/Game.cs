@@ -25,6 +25,7 @@ public class Game : MonoBehaviour
         selectedCard = null;
         n = 4;
         m = 0;
+        goals = 0;
         finish = false;
         btReset.onClick.AddListener(Reload);
         btRules.onClick.AddListener(Rules);
@@ -42,9 +43,13 @@ public class Game : MonoBehaviour
             Finish();
         }
 
-        if(m >= 4 && !finish) 
+        if(m == 4 && !finish) 
         {
             btAuto.GetComponent<Button>().interactable = true;
+        }
+        else
+        {
+            btAuto.GetComponent<Button>().interactable = false;
         }
     }
     
@@ -63,7 +68,6 @@ public class Game : MonoBehaviour
         Sprite sp;
 
         txtWin.enabled = true;
-        btAuto.GetComponent<Button>().interactable = false;
         for (int i=0; i<8; i++)
         {
             var t = GameObject.Find("t" + Convert.ToString(i + 1));
